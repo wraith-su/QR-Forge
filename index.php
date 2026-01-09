@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>QR Forge</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="layout">
+    <section class="left">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="kicker">QR FORGE</div>
+          <h1>Build crisp QR codes in seconds</h1>
+        </div>
+      </div>
+      <div class="sub">
+        Generate QR codes for links, text, or contact cards. Tweak size, margin,
+        and color, then export PNG instantly.
+      </div>
+
+      <div class="panel">
+        <div class="contentHead">
+          <label for="qrText">Content</label>
+        </div>
+        <textarea id="qrText" placeholder="https://example.com"></textarea>
+
+        <div class="row" style="margin-top:10px">
+          <div>
+            <label for="qrSizePreset">Size preset</label>
+            <select id="qrSizePreset">
+              <option value="64">64</option>
+              <option value="128">128</option>
+              <option value="256" selected>256</option>
+              <option value="512">512</option>
+              <option value="768">768</option>
+              <option value="1024">1024</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+          <div>
+            <label for="qrMargin">Margin</label>
+            <select id="qrMargin">
+              <option value="8">8</option>
+              <option value="12" selected>12</option>
+              <option value="20">20</option>
+              <option value="32">32</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row full sizeCustom" id="sizeCustomBlock">
+          <div>
+            <div class="sliderLabel"><span>Size</span><span id="qrSizeVal">256</span></div>
+            <input id="qrSizeRange" type="range" min="64" max="1024" value="256" />
+          </div>
+        </div>
+
+        <div class="row-3" style="margin-top:10px">
+          <div>
+            <label>Foreground</label>
+            <div class="colorPicker" data-target="qrColorText">
+              <div class="colorSwatch" id="swatchFg" role="button" tabindex="0"></div>
+              <input class="colorValue" id="qrColorText" type="text" value="#111827" />
+              <div class="colorPanel">
+                <div class="svArea" data-role="sv"></div>
+                <div class="svHandle" data-role="svHandle"></div>
+                <div class="colorRows">
+                  <div class="pickerLabel"><span>Hue</span><span>fg</span></div>
+                  <input type="range" min="0" max="360" value="220" data-role="hue" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label>Background</label>
+            <div class="colorPicker" data-target="qrBgText">
+              <div class="colorSwatch" id="swatchBg" role="button" tabindex="0"></div>
+              <input class="colorValue" id="qrBgText" type="text" value="#ffffff" />
+              <div class="colorPanel">
+                <div class="svArea" data-role="sv"></div>
+                <div class="svHandle" data-role="svHandle"></div>
+                <div class="colorRows">
+                  <div class="pickerLabel"><span>Hue</span><span>bg</span></div>
+                  <input type="range" min="0" max="360" value="0" data-role="hue" />
+                  <div class="pickerLabel"><span>Alpha</span><span id="bgAlphaValue">100%</span></div>
+                  <input type="range" min="0" max="100" value="100" data-role="alpha" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label for="qrFormat">Format</label>
+            <select id="qrFormat">
+              <option value="png" selected>PNG</option>
+              <option value="svg">SVG</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="switchRow">
+          <label for="bgTransparent">Transparency background</label>
+          <div>
+            <input class="switchInput" id="bgTransparent" type="checkbox" />
+            <label class="switch" for="bgTransparent"></label>
+          </div>
+        </div>
+
+        <div class="advancedToggle">
+          <button class="muted" id="btnAdvanced">
+            <i data-lucide="sliders-horizontal"></i>
+            Advanced settings
+            <i data-lucide="chevron-down" id="advancedChevron"></i>
+          </button>
+        </div>
+        <div class="resetRow">
+          <button class="muted" id="btnReset"><i data-lucide="rotate-ccw"></i>Reset settings</button>
+        </div>
+
+        <div class="advanced" id="advanced">
+          <hr class="sectionDivider" />
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label for="qrStyle">Style</label>
+              <select id="qrStyle">
+                <option value="square" selected>Squares</option>
+                <option value="rounded">Rounded</option>
+                <option value="dots">Dots</option>
+                <option value="classy">Classy</option>
+                <option value="classy-rounded">Classy Rounded</option>
+                <option value="extra-rounded">Extra Rounded</option>
+              </select>
+            </div>
+            <div>
+              <div class="sliderLabel"><span>Corner roundness</span><span id="qrRoundVal">40</span></div>
+              <input id="qrRound" type="range" min="0" max="100" value="40" />
+            </div>
+          </div>
+
+          <hr class="sectionDivider" />
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label for="logoFile">Center logo</label>
+              <input id="logoFile" type="file" accept="image/*" hidden />
+              <div class="dropzone" id="logoDrop"><i data-lucide="image-plus"></i>Drop logo or click</div>
+            </div>
+            <div>
+              <label for="logoUrl">Logo URL</label>
+              <div class="logoUrlRow">
+                <input id="logoUrl" type="text" placeholder="https://..." />
+                <button class="muted" id="btnLogoUrl" type="button"><i data-lucide="link"></i>Load</button>
+              </div>
+            </div>
+          </div>
+          <div class="row full" style="margin-top:10px">
+            <div class="logoPresetBlock">
+              <label>Logo presets</label>
+              <div class="logoPresets">
+                <button type="button" class="logoPreset" data-logo="web"><i class="fa-solid fa-globe"></i><span>Site</span></button>
+                <button type="button" class="logoPreset" data-logo="discord"><i class="fa-brands fa-discord"></i><span>Discord</span></button>
+                <button type="button" class="logoPreset" data-logo="telegram"><i class="fa-brands fa-telegram"></i><span>Telegram</span></button>
+                <button type="button" class="logoPreset" data-logo="youtube"><i class="fa-brands fa-youtube"></i><span>YouTube</span></button>
+                <button type="button" class="logoPreset" data-logo="tiktok"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></button>
+                <button type="button" class="logoPreset" data-logo="instagram"><i class="fa-brands fa-instagram"></i><span>Instagram</span></button>
+              </div>
+            </div>
+          </div>
+          <div class="row full" style="margin-top:10px">
+            <div>
+              <div class="sliderLabel"><span>Logo size</span><span id="logoSizeVal">72</span></div>
+              <input id="logoSize" type="range" min="36" max="120" value="72" />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <div class="sliderLabel"><span>Logo rounding</span><span id="logoRadiusVal">12</span></div>
+              <input id="logoRadius" type="range" min="0" max="100" value="33" />
+            </div>
+            <div>
+              <div class="sliderLabel"><span>Logo margin</span><span id="logoMarginVal">6</span></div>
+              <input id="logoMargin" type="range" min="0" max="16" value="6" />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <div class="sliderLabel"><span>Zone size</span><span id="zonePadVal">16</span></div>
+              <input id="zonePad" type="range" min="0" max="40" value="16" />
+            </div>
+            <div>
+              <label>Zone background</label>
+              <div class="colorPicker" data-target="zoneBgText">
+                <div class="colorSwatch" id="swatchZone" role="button" tabindex="0"></div>
+                <input class="colorValue" id="zoneBgText" type="text" value="#ffffff" />
+                <div class="colorPanel">
+                  <div class="svArea" data-role="sv"></div>
+                  <div class="svHandle" data-role="svHandle"></div>
+                  <div class="colorRows">
+                    <div class="pickerLabel"><span>Hue</span><span>zone</span></div>
+                    <input type="range" min="0" max="360" value="0" data-role="hue" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="sectionDivider" />
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label for="qrCaptionText">Caption text</label>
+              <input id="qrCaptionText" type="text" value="Scan to join" />
+            </div>
+            <div class="switchRow" style="margin-top:22px">
+              <label for="qrCaptionToggle">Show caption</label>
+              <div>
+                <input class="switchInput" id="qrCaptionToggle" type="checkbox" />
+                <label class="switch" for="qrCaptionToggle"></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div>
+              <div class="sliderLabel"><span>Caption distance</span><span id="captionGapVal">10</span></div>
+              <input id="captionGap" type="range" min="0" max="32" value="10" />
+            </div>
+            <div>
+              <div class="sliderLabel"><span>Caption size</span><span id="captionSizeVal">14</span></div>
+              <input id="captionSize" type="range" min="12" max="24" value="14" />
+            </div>
+          </div>
+          <div class="row" style="margin-top:10px">
+            <div>
+              <label>Caption color</label>
+              <div class="colorPicker" data-target="captionColorText">
+                <div class="colorSwatch" id="swatchCaption" role="button" tabindex="0"></div>
+                <input class="colorValue" id="captionColorText" type="text" value="#3a3a3c" />
+                <div class="colorPanel">
+                  <div class="svArea" data-role="sv"></div>
+                  <div class="svHandle" data-role="svHandle"></div>
+                  <div class="colorRows">
+                    <div class="pickerLabel"><span>Hue</span><span>caption</span></div>
+                    <input type="range" min="0" max="360" value="220" data-role="hue" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hint">Tip: add anything - a URL, WiFi string, or plain text.</div>
+      </div>
+
+      <div class="grid">
+        <div class="stat"><b>12</b><span>Presets ready</span></div>
+        <div class="stat"><b>0.3s</b><span>Avg render</span></div>
+        <div class="stat"><b id="sessionSeconds">0s</b><span>On site now</span></div>
+        <div class="stat"><b>Live</b><span>Auto updates</span></div>
+      </div>
+    </section>
+
+    <aside class="right">
+      <div class="preview">
+        <div class="qrWrap" id="qrWrap">
+          <div class="qrFrame">
+            <div class="badge">Live preview</div>
+            <div class="qrStage" id="qrStage">
+              <div id="qrCanvas" aria-label="QR code preview"></div>
+              <div class="qrLoading"></div>
+            </div>
+          </div>
+          <div class="qrCaption" id="qrCaption">Scan to join</div>
+        </div>
+        <div class="qrActions">
+          <button class="muted" id="btnCopy"><i data-lucide="copy"></i>Copy link</button>
+          <button class="primary" id="btnDownload"><i data-lucide="download"></i>Download</button>
+          <button class="muted" id="btnOpen"><i data-lucide="external-link"></i>Open</button>
+        </div>
+        <div class="meta">
+          <b>Payload</b>
+          <span id="payloadView">https://example.com</span>
+        </div>
+        <a class="githubBanner" href="https://github.com/wraith-su" target="_blank" rel="noreferrer">
+          <div class="bannerLeft">
+            <i data-lucide="github"></i>
+            <div>
+              <b>Me on GitHub</b>
+              <span>github.com/wraith-su</span>
+            </div>
+          </div>
+          <i class="arrow" data-lucide="arrow-up-right"></i>
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+  <script src="script.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
+
+
