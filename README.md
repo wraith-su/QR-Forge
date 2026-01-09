@@ -1,6 +1,8 @@
 # QR-Forge
 
-A small, no-nonsense QR code generator built as a quick side project.
+- https://wraith-su.github.io/QR-Forge/index.html
+
+A small, no-nonsense QR code generator built as a quick side project. 
 
 This is a minimal static website for generating QR codes.  
 The original goal was to put together something functional and clean in under an hour — which, unsurprisingly, took a bit longer.
